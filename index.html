@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бизнес-идея «Roast & Tech» — Инновационные кофейные хабы</title>
+  
+  <!-- Подключение шрифтов и иконок FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ==========================================
+       СБРОС И БАЗОВЫЕ ПЕРЕМЕННЫЕ
+       ========================================== */
+    :root {
+      --bg-dark: #0D0805;
+      --bg-card: #18110C;
+      --bg-card-hover: #241A13;
+      --border-color: #38281D;
+      --accent-gold: #D4AF37;
+      --accent-light: #E6C280;
+      --accent-glow: rgba(212, 175, 55, 0.25);
+      --text-main: #F5EBE6;
+      --text-muted: #A8988E;
+      --text-dark: #0D0805;
+      --font-title: 'Montserrat', sans-serif;
+      --font-body: 'Outfit', sans-serif;
+      --transition-speed: 0.4s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ==========================================
+       ОБЕРТКА ПРЕЗЕНТАЦИИ (16:9 ASPECT RATIO)
+       ========================================== */
+    .presentation-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1280px;
+      height: 100vh;
+      max-height: 720px;
+      background: radial-gradient(circle at 50% 20%, #211610 0%, #0D0805 80%);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    @media (min-aspect-ratio: 16/9) {
+      .presentation-wrapper {
+        height: 100vh;
+        max-height: calc(100vw * 9 / 16);
+      }
+    }
+
+    /* Верхний прогресс-бар */
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 50;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 8.33%;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-light));
+      box-shadow: 0 0 10px var(--accent-gold);
+      transition: width 0.4s ease;
+    }
+
+    /* Слайды */
+    .slides-container {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 48px 64px 80px 64px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(15px) scale(0.99);
+      transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease, visibility var(--transition-speed);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Анимация появления контента внутри активного слайда */
+    .slide.active .animate-item {
+      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .slide.active .animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .slide.active .animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .slide.active .animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .slide.active .animate-delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================
+       ТИПОГРАФИКА И ЭЛЕМЕНТЫ ДИЗАЙНА
+       ========================================== */
+    .slide-header {
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 2px;
+      background: var(--accent-gold);
+    }
+
+    .slide-title {
+      font-family: var(--font-title);
+      font-size: 32px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .slide-title span {
+      color: var(--accent-light);
+      background: linear-gradient(135deg, #FFFFFF 0%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+    }
+
+    /* Карточки */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 15px var(--accent-glow);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-gold);
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: var(--font-title);
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .highlight-text {
+      color: var(--accent-light);
+      font-weight: 600;
+    }
+
+    /* ==========================================
+       НАВИГАЦИЯ И ПУЛЬТ УПРАВЛЕНИЯ
+       ========================================== */
+    .controls-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      padding: 0 48px;
+      background: rgba(13, 8, 5, 0.9);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 40;
+    }
+
+    .nav-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent-gold);
+      color: var(--text-dark);
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .slide-counter {
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .slide-counter span {
+      color: var(--accent-gold);
+    }
+
+    .dots-indicator {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      width: 24px;
+      background: var(--accent-gold);
+      box-shadow: 0 0 8px var(--accent-gold);
+    }
+
+    /* ==========================================
+       СПЕЦИФИЧЕСКИЕ СТИЛИ ДЛЯ СЛАЙДОВ
+       ========================================== */
+    
+    /* Слайд 1: Титульный */
+    .title-slide {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+    }
+
+    .main-logo-box {
+      width: 90px;
+      height: 90px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 2px solid var(--accent-gold);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: var(--accent-gold);
+      margin: 0 auto 24px auto;
+      box-shadow: 0 0 30px var(--accent-glow);
+      animation: float 4s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .main-title {
+      font-family: var(--font-title);
+      font-size: 56px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #FFFFFF 30%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .main-subtitle {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 40px auto;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 1080px;
+    }
+
+    .team-card {
+      background: rgba(24, 17, 12, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+
+    .team-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-4px);
+    }
+
+    .team-role {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    .team-name {
+      font-family: var(--font-title);
+      font-size: 15px;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 2px;
+    }
+
+    .team-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Метрики и Статистика */
+    .stat-number {
+      font-family: var(--font-title);
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--accent-light);
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    /* Списки */
+    ul.styled-list {
+      list-style: none;
+    }
+
+    ul.styled-list li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    ul.styled-list li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: var(--accent-gold);
+      font-size: 12px;
+    }
+
+    /* SVG Логотип */
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .svg-logo {
+      width: 140px;
+      height: 140px;
+      margin-bottom: 20px;
+    }
+
+    /* Таблицы */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .custom-table th, .custom-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 14px;
+    }
+
+    .custom-table th {
+      font-family: var(--font-title);
+      color: var(--accent-gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .custom-table td {
+      color: var(--text-main);
+    }
+
+    /* Финальная кнопка */
+    .restart-btn {
+      margin-top: 24px;
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-light));
+      color: var(--text-dark);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-family: var(--font-title);
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .restart-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="presentation-wrapper">
+    <!-- Прогресс-бар -->
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- КОНТЕЙНЕР СЛАЙДОВ -->
+    <div class="slides-container">
+
+      <!-- ==================== СЛАЙД 1: ТИТУЛЬНЫЙ ==================== -->
+      <div class="slide title-slide active" id="slide-1">
+        <div class="main-logo-box animate-item">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <div class="eyebrow animate-item animate-delay-1">Презентация бизнес-идеи</div>
+        <h1 class="main-title animate-item animate-delay-1">Roast &amp; Tech</h1>
+        <p class="main-subtitle animate-item animate-delay-2">
+          Умные кофейные хабы самообслуживания &amp; Экосистема подписок с персональной кастомизацией
+        </p>
+
+        <div class="team-grid animate-item animate-delay-3">
+          <div class="team-card">
+            <div class="team-role">CEO / Vision</div>
+            <div class="team-name">Галушко Денис</div>
+            <div class="team-desc">Стратегия и развитие бренда</div>
+          </div>
+          <div class="team-card">
+            <div class="team-role">CTO / Tech</div>
+            <div class="team-name">Мацаев Юсуф</div>
+            <div class="team-desc">IT-платформа и инжиниринг</div>
+          </div>
+          <div class="team-card">
+            <div class="team-role">CFO / Finance</div>
+            <div class="team-name">Хазиев Ильхам</div>
+            <div class="team-desc">Финансы и юниты-экономика</div>
+          </div>
+          <div class="team-card">
+            <div class="team-role">CMO / Marketing</div>
+            <div class="team-name">Барамышев Камиль</div>
+            <div class="team-desc">Продвижение и масштабирование</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 2: ОТРАСЛЬ И РЫНОК ==================== -->
+      <div class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="eyebrow">Рыночный контекст</div>
+          <h2 class="slide-title">Отрасль <span>HoReCa &amp; Smart Retail</span></h2>
+        </div>
+        <div class="grid-3">
+          <div class="card animate-item animate-delay-1">
+            <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <div class="card-title">Рост Coffee-to-Go</div>
+            <div class="card-desc">Рынок кофе «с собой» растет на <span class="highlight-text">+14.5% ежегодно</span>. Потребление спешелти-сортов становится массовым стандартом у горожан.</div>
+          </div>
+          <div class="card animate-item animate-delay-2">
+            <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
+            <div class="card-title">Автоматизация HoReCa</div>
+            <div class="card-desc">Дефицит линейного персонала стимулирует переход на автономные суперавтоматы с ресторанным качеством экстракции.</div>
+          </div>
+          <div class="card animate-item animate-delay-3">
+            <div class="card-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+            <div class="card-title">Subscriptions &amp; App</div>
+            <div class="card-desc">Более <span class="highlight-text">62% миллениалов и Gen-Z</span> предпочитают предзаказ через приложение и подписочные сервисы повседневных товаров.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 3: ПРОБЛЕМА РЫНКА ==================== -->
+      <div class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="eyebrow">Проблематика</div>
+          <h2 class="slide-title">Ключевые боли <span>традиционных кофеен</span></h2>
+        </div>
+        <div class="grid-4">
+          <div class="card animate-item animate-delay-1">
+            <div class="card-icon" style="color: #FF5555; background: rgba(255,85,85,0.1); border-color: rgba(255,85,85,0.3);"><i class="fa-solid fa-clock"></i></div>
+            <div class="card-title">Очереди и ожидание</div>
+            <div class="card-desc">Потеря 7-12 минут в утренние пиковые часы. Клиенты уходят из-за отсутствия времени.</div>
+          </div>
+          <div class="card animate-item animate-delay-2">
+            <div class="card-icon" style="color: #FF5555; background: rgba(255,85,85,0.1); border-color: rgba(255,85,85,0.3);"><i class="fa-solid fa-dollar-sign"></i></div>
+            <div class="card-title">Высокая цена</div>
+            <div class="card-desc">Наценка до 400% из-за высокой стоимости аренды помещений и фонда оплаты труда бариста.</div>
+          </div>
+          <div class="card animate-item animate-delay-3">
+            <div class="card-icon" style="color: #FF5555; background: rgba(255,85,85,0.1); border-color: rgba(255,85,85,0.3);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="card-title">Человеческий фактор</div>
+            <div class="card-desc">Нестабильное качество напитков, ошибки в рецептуре и разный уровень сервиса.</div>
+          </div>
+          <div class="card animate-item animate-delay-4">
+            <div class="card-icon" style="color: #FF5555; background: rgba(255,85,85,0.1); border-color: rgba(255,85,85,0.3);"><i class="fa-solid fa-sliders"></i></div>
+            <div class="card-title">Сложность кастомизации</div>
+            <div class="card-desc">Неудобно долго объяснять индивидуальные предпочтения (температура, степень обжарки, сироп).</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 4: ИННОВАЦИОННОЕ РЕШЕНИЕ ==================== -->
+      <div class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="eyebrow">Наше решение</div>
+          <h2 class="slide-title">Экосистема <span>Roast &amp; Tech</span></h2>
+        </div>
+        <div class="grid-2">
+          <div class="card animate-item animate-delay-1">
+            <div class="badge">Hardware</div>
+            <div class="card-title" style="font-size: 22px;">Автономный кофейный хаб</div>
+            <p class="card-desc" style="margin-bottom: 16px;">
+              Компактный модуль (всего 1.5–2 кв.м) с профессиональной швейцарской кофейной группой, телеметрией и системой автоматической выдачи.
+            </p>
+            <ul class="styled-list">
+              <li>Приготовление за 45 секунд</li>
+              <li>Свежемолотое спешелти-зерно (100% Арабика)</li>
+              <li>Поддержка альтернативного молока и сиропов</li>
+            </ul>
+          </div>
+
+          <div class="card animate-item animate-delay-2">
+            <div class="badge">Software</div>
+            <div class="card-title" style="font-size: 22px;">Мобильное IT-приложение</div>
+            <p class="card-desc" style="margin-bottom: 16px;">
+              Единый цифровой хаб пользователя с возможностью бесконтактного заказа, настройки рецепта и подписки.
+            </p>
+            <ul class="styled-list">
+              <li>Заказ по пути к хабу (без касания экрана)</li>
+              <li>Конструктор рецептов (крепость, пенка, температура)</li>
+              <li>Подписочные тарифы «Кофе-Pass» со скидкой до 35%</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 5: БРЕНДИНГ И ЛОГОТИП ==================== -->
+      <div class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="eyebrow">Брендинг &amp; Идентичность</div>
+          <h2 class="slide-title">Философия бренда <span>«Roast &amp; Tech»</span></h2>
+        </div>
+        <div class="grid-2" style="align-items: center;">
+          <div class="logo-container animate-item animate-delay-1">
+            <!-- Интерактивный SVG Логотип -->
+            <svg class="svg-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="5" width="90" height="90" rx="20" fill="#18110C" stroke="#D4AF37" stroke-width="3"/>
+              <!-- Кофейная чашка + электронные линии -->
+              <path d="M30 40H60V55C60 63.2843 53.2843 70 45 70C36.7157 70 30 63.2843 30 55V40Z" stroke="#E6C280" stroke-width="4" stroke-linecap="round"/>
+              <path d="M60 45H66C69.3137 45 72 47.6863 72 51C72 54.3137 69.3137 57 66 57H60" stroke="#E6C280" stroke-width="3"/>
+              <!-- Анимированный пар / IT-дорожки -->
+              <path d="M36 32C36 28 40 26 40 22" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+              <path d="M45 32C45 28 49 26 49 22" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+              <path d="M54 32C54 28 58 26 58 22" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+              <!-- Точки микросхемы -->
+              <circle cx="40" cy="20" r="2" fill="#D4AF37"/>
+              <circle cx="49" cy="20" r="2" fill="#D4AF37"/>
+              <circle cx="58" cy="20" r="2" fill="#D4AF37"/>
+            </svg>
+            <div style="font-family: var(--font-title); font-size: 24px; font-weight: 800; color: #FFF; letter-spacing: 1px;">
+              ROAST <span style="color: var(--accent-gold);">&amp;</span> TECH
+            </div>
+            <div style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">CRAFT COFFEE × SMART IT</div>
+          </div>
+
+          <div>
+            <div class="card animate-item animate-delay-2" style="margin-bottom: 16px;">
+              <div class="card-title"><i class="fa-solid fa-fire" style="color: var(--accent-gold); margin-right: 8px;"></i> Roast (Смысл)</div>
+              <div class="card-desc">Символизирует искусство обжарки, бескомпромиссное качество зерна, традиционную кофейную культуру и теплоту вкуса.</div>
+            </div>
+            <div class="card animate-item animate-delay-3">
+              <div class="card-title"><i class="fa-solid fa-code" style="color: var(--accent-gold); margin-right: 8px;"></i> Tech (Инновация)</div>
+              <div class="card-desc">Символизирует цифровую платформу, идеальную точность рецептуры, скорость работы и ультрасовременный пользовательский опыт.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 6: ПРОДУКТ И УСЛУГИ ==================== -->
+      <div class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="eyebrow">Продуктовая линейка</div>
+          <h2 class="slide-title">Что получает <span>клиент</span></h2>
+        </div>
+        <div class="grid-3">
+          <div class="card animate-item animate-delay-1">
+            <div class="card-icon"><i class="fa-solid fa-coffee"></i></div>
+            <div class="card-title">Авторское меню</div>
+            <div class="card-desc">Классическая линейка (Эспрессо, Флэт Уайт, Капучино) + сезонные авторские напитки на натуральных сублиматах и органических сиропах.</div>
+          </div>
+          <div class="card animate-item animate-delay-2">
+            <div class="card-icon"><i class="fa-solid fa-repeat"></i></div>
+            <div class="card-title">Подписка «Кофе-Pass»</div>
+            <div class="card-desc">Гибкие тарифы: <span class="highlight-text">10, 20 или 30 чашек в месяц</span> с фиксированной выгодой и приоритетным выдачей без ожидания.</div>
+          </div>
+          <div class="card animate-item animate-delay-3">
+            <div class="card-icon"><i class="fa-solid fa-cookie-bite"></i></div>
+            <div class="card-title">Fresh Snacks</div>
+            <div class="card-desc">Ежедневный завозимый ассортимент свежих круассанов, протеиновых батончиков и крафтового печенья в герметичной упаковке.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 7: ЦЕЛЕВАЯ АУДИТОРИЯ ==================== -->
+      <div class="slide" id="slide-7">
+        <div class="slide-header">
+          <div class="eyebrow">Целевая аудитория</div>
+          <h2 class="slide-title">Портреты <span>наших клиентов</span></h2>
+        </div>
+        <div class="grid-3">
+          <div class="card animate-item animate-delay-1">
+            <div class="badge">45% аудитории</div>
+            <div class="card-title">IT &amp; Digital-профи</div>
+            <div class="card-desc" style="margin-bottom: 12px;">21-38 лет. Ценят технологичность, время и кастомизацию.</div>
+            <ul class="styled-list">
+              <li>Покупают подписку</li>
+              <li>Заказывают через приложение</li>
+              <li>Пьют 2-3 чашки в день</li>
+            </ul>
+          </div>
+          <div class="card animate-item animate-delay-2">
+            <div class="badge">30% аудитории</div>
+            <div class="card-title">Студенты ВУЗов</div>
+            <div class="card-desc" style="margin-bottom: 12px;">18-24 года. Чувствительны к цене и качеству.</div>
+            <ul class="styled-list">
+              <li>Используют студенческие скидки</li>
+              <li>Любят авторские напитки</li>
+              <li>Участвуют в реферальной программе</li>
+            </ul>
+          </div>
+          <div class="card animate-item animate-delay-3">
+            <div class="badge">25% аудитории</div>
+            <div class="card-title">Деловой сегмент</div>
+            <div class="card-desc" style="margin-bottom: 12px;">25-50 лет. Резиденты БЦ и жильцы ЖК.</div>
+            <ul class="styled-list">
+              <li>Важна абсолютная скорость</li>
+              <li>Стабильность вкуса каждый день</li>
+              <li>Бесконтактный быстрый забор</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 8: БИЗНЕС-МОДЕЛЬ ==================== -->
+      <div class="slide" id="slide-8">
+        <div class="slide-header">
+          <div class="eyebrow">Монетизация</div>
+          <h2 class="slide-title">Источники <span>доходов</span></h2>
+        </div>
+        <div class="grid-2">
+          <div class="card animate-item animate-delay-1">
+            <div class="card-icon"><i class="fa-solid fa-credit-card"></i></div>
+            <div class="card-title">B2C Подписки (MRR)</div>
+            <div class="card-desc">Регулярный ежемесячный доход от мобильных подписок «Кофе-Pass». Обеспечивает прогнозируемый поток денежных средств (LTV +180%).</div>
+          </div>
+          <div class="card animate-item animate-delay-2">
+            <div class="card-icon"><i class="fa-solid fa-cash-register"></i></div>
+            <div class="card-title">Разовые розничные продажи</div>
+            <div class="card-desc">Продажи напитков и сопутствующей выпечки для спонтанных покупателей через сенсорный терминал или QR-код.</div>
+          </div>
+          <div class="card animate-item animate-delay-3">
+            <div class="card-icon"><i class="fa-solid fa-building"></i></div>
+            <div class="card-title">B2B Корпоративные тарифы</div>
+            <div class="card-desc">Оплата подписок компаниями для своих сотрудников в офисах (элемент соцпакета) по специальным B2B-пакетам.</div>
+          </div>
+          <div class="card animate-item animate-delay-4">
+            <div class="card-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+            <div class="card-title">Мерч и Specialty-зерно</div>
+            <div class="card-desc">Продажа фирменных термостаканов и пачек свежеобжаренного зерна через мобильный магазин в приложении.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 9: ФИНАНСОВЫЙ ПЛАН ==================== -->
+      <div class="slide" id="slide-9">
+        <div class="slide-header">
+          <div class="eyebrow">Финансы &amp; Экономика</div>
+          <h2 class="slide-title">Юнит-экономика <span>1 Кофейного Хаба</span></h2>
+        </div>
+        <div class="grid-2">
+          <div>
+            <table class="custom-table animate-item animate-delay-1">
+              <thead>
+                <tr>
+                  <th>Статья затрат (CAPEX)</th>
+                  <th>Сумма (₸)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Кофейный модуль + суперавтомат</td>
+                  <td>3 200 000 ₸</td>
+                </tr>
+                <tr>
+                  <td>Терминал оплаты, датчики &amp; IT-плата</td>
+                  <td>650 000 ₸</td>
+                </tr>
+                <tr>
+                  <td>Брендинг, монтаж &amp; первичное сырье</td>
+                  <td>400 000 ₸</td>
+                </tr>
+                <tr style="font-weight: 700; color: var(--accent-light);">
+                  <td>ИТОГО CAPEX на 1 точку</td>
+                  <td>4 250 000 ₸</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid-2">
+            <div class="card animate-item animate-delay-2" style="text-align: center;">
+              <div class="stat-number">8 мес.</div>
+              <div class="card-title" style="font-size: 15px;">Срок окупаемости</div>
+              <div class="card-desc">При реализации 75 чашек/день</div>
+            </div>
+            <div class="card animate-item animate-delay-3" style="text-align: center;">
+              <div class="stat-number">925 000 ₸</div>
+              <div class="card-title" style="font-size: 15px;">Чистая прибыль/мес</div>
+              <div class="card-desc">Маржинальность бизнеса ~42%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 10: МАРКЕТИНГ И СТРАТЕГИЯ ==================== -->
+      <div class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="eyebrow">Маркетинг &amp; Рост</div>
+          <h2 class="slide-title">Стратегия <span>привлечения клиентов</span></h2>
+        </div>
+        <div class="grid-3">
+          <div class="card animate-item animate-delay-1">
+            <div class="card-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="card-title">Локационный гео-таргетинг</div>
+            <div class="card-desc">Push-уведомления и реклама в картах (Яндекс/2ГИС) для пользователей в радиусе 300 метров от кофейного хаба.</div>
+          </div>
+          <div class="card animate-item animate-delay-2">
+            <div class="card-icon"><i class="fa-solid fa-users-rays"></i></div>
+            <div class="card-title">Viral Referral System</div>
+            <div class="card-desc">Механика «Приведи друга — получи 2 чашки бесплатно». Быстрый органический рост без больших затрат на рекламу.</div>
+          </div>
+          <div class="card animate-item animate-delay-3">
+            <div class="card-icon"><i class="fa-solid fa-handshake"></i></div>
+            <div class="card-title">B2B Партнерства</div>
+            <div class="card-desc">Интеграция с IT-компаниями, коворкингами и фитнес-клубами. Бесплатный первый тест для сотрудников.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 11: РАСПРЕДЕЛЕНИЕ РОЛЕЙ ==================== -->
+      <div class="slide" id="slide-11">
+        <div class="slide-header">
+          <div class="eyebrow">Защита проекта</div>
+          <h2 class="slide-title">Карта компетенций <span>команды</span></h2>
+        </div>
+        <div class="grid-4">
+          <div class="card animate-item animate-delay-1">
+            <div class="badge">CEO / Vision</div>
+            <div class="card-title" style="font-size: 16px;">Галушко Денис</div>
+            <div class="card-desc" style="margin-bottom: 10px;">Отвечает за стратегию и pitch-защиту.</div>
+            <div style="font-size: 12px; color: var(--accent-light);"><b>Вопросы:</b> Общая концепция, масштабирование, партнерства.</div>
+          </div>
+          <div class="card animate-item animate-delay-2">
+            <div class="badge">CTO / Tech</div>
+            <div class="card-title" style="font-size: 16px;">Мацаев Юсуф</div>
+            <div class="card-desc" style="margin-bottom: 10px;">Отвечает за IT-платформу и оборудование.</div>
+            <div style="font-size: 12px; color: var(--accent-light);"><b>Вопросы:</b> Приложение, телеметрия, интеграция hardware.</div>
+          </div>
+          <div class="card animate-item animate-delay-3">
+            <div class="badge">CFO / Finance</div>
+            <div class="card-title" style="font-size: 16px;">Хазиев Ильхам</div>
+            <div class="card-desc" style="margin-bottom: 10px;">Отвечает за расчеты и окупаемость.</div>
+            <div style="font-size: 12px; color: var(--accent-light);"><b>Вопросы:</b> CAPEX, OPEX, LTV/CAC, финансовые риски.</div>
+          </div>
+          <div class="card animate-item animate-delay-4">
+            <div class="badge">CMO / Marketing</div>
+            <div class="card-title" style="font-size: 16px;">Барамышев Камиль</div>
+            <div class="card-desc" style="margin-bottom: 10px;">Отвечает за привлечение и подписки.</div>
+            <div style="font-size: 12px; color: var(--accent-light);"><b>Вопросы:</b> Маркетинг, каналы продаж, удержание клиентов.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== СЛАЙД 12: ЗАКЛЮЧЕНИЕ И Q&A ==================== -->
+      <div class="slide title-slide" id="slide-12">
+        <div class="main-logo-box animate-item" style="width: 70px; height: 70px; font-size: 30px; margin-bottom: 16px;">
+          <i class="fa-solid fa-comments"></i>
+        </div>
+        <div class="eyebrow animate-item animate-delay-1">Финал презентации</div>
+        <h1 class="main-title animate-item animate-delay-1" style="font-size: 44px;">Спасибо за внимание!</h1>
+        <p class="main-subtitle animate-item animate-delay-2" style="max-width: 600px; font-size: 18px; margin-bottom: 24px;">
+          Готовы ответить на все вопросы экспертной комиссии
+        </p>
+
+        <div class="animate-item animate-delay-3" style="display: flex; gap: 16px; justify-content: center; align-items: center; margin-bottom: 20px;">
+          <div class="card" style="padding: 12px 24px;">
+            <i class="fa-solid fa-envelope" style="color: var(--accent-gold); margin-right: 8px;"></i>
+            <span style="font-size: 14px; color: var(--text-main);">invest@roasttech.kz</span>
+          </div>
+          <div class="card" style="padding: 12px 24px;">
+            <i class="fa-solid fa-globe" style="color: var(--accent-gold); margin-right: 8px;"></i>
+            <span style="font-size: 14px; color: var(--text-main);">roasttech.kz</span>
+          </div>
+        </div>
+
+        <div class="animate-item animate-delay-4">
+          <button class="restart-btn" id="restartBtn">
+            <i class="fa-solid fa-rotate-left"></i> В начало презентации
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ПУЛЬТ УПРАВЛЕНИЯ ВНИЗУ -->
+    <div class="controls-bar">
+      <button class="nav-btn" id="prevBtn">
+        <i class="fa-solid fa-chevron-left"></i> Назад
+      </button>
+
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <div class="dots-indicator" id="dotsContainer"></div>
+        <div class="slide-counter">Слайд <span id="currentSlideNum">1</span> / <span id="totalSlidesNum">12</span></div>
+      </div>
+
+      <button class="nav-btn" id="nextBtn">
+        Вперед <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       СКРИПТ НАВИГАЦИИ И ИНТЕРАКТИВА
+       ========================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      const totalSlides = slides.length;
+      let currentSlide = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const restartBtn = document.getElementById('restartBtn');
+      const currentSlideNum = document.getElementById('currentSlideNum');
+      const totalSlidesNum = document.getElementById('totalSlidesNum');
+      const progressBar = document.getElementById('progressBar');
+      const dotsContainer = document.getElementById('dotsContainer');
+
+      totalSlidesNum.textContent = totalSlides;
+
+      // Создание точек индикатаров
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+
+      const dots = document.querySelectorAll('.dot');
+
+      // Функция обновления слайда
+      function updateSlide() {
+        slides.forEach((slide, index) => {
+          if (index === currentSlide) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        // Обновление кнопок
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === totalSlides - 1;
+
+        // Обновление счетчика
+        currentSlideNum.textContent = currentSlide + 1;
+
+        // Обновление прогресс-бара
+        const progressPercent = ((currentSlide + 1) / totalSlides) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+
+        // Обновление точек
+        dots.forEach((dot, index) => {
+          if (index === currentSlide) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      function goToSlide(index) {
+        if (index >= 0 && index < totalSlides) {
+          currentSlide = index;
+          updateSlide();
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          currentSlide++;
+          updateSlide();
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide();
+        }
+      }
+
+      // Слушатели событий клика
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      if (restartBtn) {
+        restartBtn.addEventListener('click', () => goToSlide(0));
+      }
+
+      // Слушатели клавиш клавиатуры
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'Space') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          goToSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          goToSlide(totalSlides - 1);
+        }
+      });
+
+      // Инициализация
+      updateSlide();
+    });
+  </script>
+</body>
+</html>
