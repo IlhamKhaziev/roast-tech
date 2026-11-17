@@ -12,6 +12,8 @@
       --bg-surface: #0d1526;
       --bg-card: rgba(17, 26, 46, 0.78);
       --bg-card-solid: #111a2e;
+      --bg-inner: rgba(6, 10, 18, 0.55);
+      --bg-inner-strong: rgba(6, 10, 18, 0.72);
       --border-subtle: rgba(148, 163, 184, 0.16);
       --border-blueprint: rgba(56, 189, 248, 0.25);
       --border-glow: rgba(16, 185, 129, 0.5);
@@ -34,27 +36,51 @@
     }
 
     body.light-theme {
-      --bg-deep: #f0f4f8;
+      --bg-deep: #f4f7fb;
       --bg-surface: #ffffff;
-      --bg-card: rgba(255, 255, 255, 0.92);
+      --bg-card: rgba(255, 255, 255, 0.94);
       --bg-card-solid: #ffffff;
-      --border-subtle: rgba(15, 23, 42, 0.12);
-      --border-blueprint: rgba(2, 132, 199, 0.25);
-      --border-glow: rgba(5, 150, 105, 0.5);
+      --bg-inner: #f1f5f9;
+      --bg-inner-strong: #e2e8f0;
+      --border-subtle: rgba(15, 23, 42, 0.10);
+      --border-blueprint: rgba(2, 132, 199, 0.22);
+      --border-glow: rgba(5, 150, 105, 0.45);
       --emerald: #059669;
-      --emerald-light: #10b981;
-      --emerald-dim: rgba(5, 150, 105, 0.12);
+      --emerald-light: #047857;
+      --emerald-dim: rgba(5, 150, 105, 0.10);
       --cyan: #0284c7;
-      --cyan-dim: rgba(2, 132, 199, 0.12);
+      --cyan-dim: rgba(2, 132, 199, 0.10);
       --amber: #d97706;
       --rose: #e11d48;
       --violet: #7c3aed;
       --text-main: #0f172a;
       --text-muted: #475569;
       --text-dim: #64748b;
-      --grid-line: rgba(2, 132, 199, 0.07);
-      --grid-major: rgba(2, 132, 199, 0.14);
-      --shadow-card: 0 16px 36px -14px rgba(15, 23, 42, 0.12);
+      --grid-line: rgba(2, 132, 199, 0.055);
+      --grid-major: rgba(2, 132, 199, 0.11);
+      --shadow-card: 0 12px 30px -10px rgba(15, 23, 42, 0.08);
+    }
+
+    body.light-theme .blueprint-glow {
+      opacity: 0.13;
+    }
+    body.light-theme .user-shot-img {
+      background: #f8fafc;
+    }
+    body.light-theme .bottom-nav {
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.10);
+    }
+    body.light-theme .win-frame {
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+    }
+    body.light-theme .overview-item {
+      color: var(--text-main);
+    }
+    body.light-theme .tab-btn.active {
+      color: #ffffff;
+    }
+    body.light-theme .nav-arrow:hover:not(:disabled) {
+      color: #ffffff;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -547,7 +573,7 @@
     }
   </style>
 </head>
-<body>
+<body class="light-theme">
   <div class="progress-bar-top" id="progressBarTop" style="width: 10%;"></div>
 
   <!-- Blueprint Background -->
@@ -626,21 +652,21 @@
                 </div>
 
                 <div class="grid-3" style="gap:10px;margin-bottom:16px;">
-                  <div style="background:rgba(6,10,18,0.55);border:1px solid var(--border-blueprint);border-radius:12px;padding:12px;text-align:center;">
+                  <div style="background:var(--bg-inner);border:1px solid var(--border-blueprint);border-radius:12px;padding:12px;text-align:center;">
                     <div class="big-stat" style="font-size:1.65rem;color:var(--emerald-light);">3НФ</div>
                     <div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Схема БД</div>
                   </div>
-                  <div style="background:rgba(6,10,18,0.55);border:1px solid var(--border-blueprint);border-radius:12px;padding:12px;text-align:center;">
+                  <div style="background:var(--bg-inner);border:1px solid var(--border-blueprint);border-radius:12px;padding:12px;text-align:center;">
                     <div class="big-stat" style="font-size:1.65rem;color:var(--cyan);">5</div>
                     <div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Отчётов</div>
                   </div>
-                  <div style="background:rgba(6,10,18,0.55);border:1px solid var(--border-blueprint);border-radius:12px;padding:12px;text-align:center;">
+                  <div style="background:var(--bg-inner);border:1px solid var(--border-blueprint);border-radius:12px;padding:12px;text-align:center;">
                     <div class="big-stat" style="font-size:1.65rem;color:var(--amber);">10/10</div>
                     <div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Тестов OK</div>
                   </div>
                 </div>
 
-                <div style="background:rgba(6,10,18,0.72);border:1px solid var(--border-blueprint);border-radius:12px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;text-align:center;color:var(--emerald-light);">
+                <div style="background:var(--bg-inner-strong);border:1px solid var(--border-blueprint);border-radius:12px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;text-align:center;color:var(--emerald-light);">
                   TotalCost = ExamPrice + ProcedurePrice × Procedures
                 </div>
               </div>
@@ -791,7 +817,7 @@
 
             <div class="grid-13-7" style="align-items:center;">
               <div class="grid-3" style="gap:14px;">
-                <div style="background:rgba(6,10,18,0.55);border:1px solid var(--border-blueprint);padding:12px;border-radius:12px;">
+                <div style="background:var(--bg-inner);border:1px solid var(--border-blueprint);padding:12px;border-radius:12px;">
                   <div style="display:flex;justify-content:space-between;font-size:0.76rem;font-weight:700;">
                     <span>ExamPrice</span>
                     <span id="lblExam" style="color:var(--emerald-light);font-family:'JetBrains Mono',monospace;">3&nbsp;200 ₽</span>
@@ -799,7 +825,7 @@
                   <input type="range" id="rngExam" min="500" max="5000" step="100" value="1500">
                 </div>
 
-                <div style="background:rgba(6,10,18,0.55);border:1px solid var(--border-blueprint);padding:12px;border-radius:12px;">
+                <div style="background:var(--bg-inner);border:1px solid var(--border-blueprint);padding:12px;border-radius:12px;">
                   <div style="display:flex;justify-content:space-between;font-size:0.76rem;font-weight:700;">
                     <span>ProcedurePrice</span>
                     <span id="lblProcPrice" style="color:var(--cyan);font-family:'JetBrains Mono',monospace;">1&nbsp;000 ₽</span>
@@ -807,7 +833,7 @@
                   <input type="range" id="rngProcPrice" min="0" max="3000" step="100" value="500">
                 </div>
 
-                <div style="background:rgba(6,10,18,0.55);border:1px solid var(--border-blueprint);padding:12px;border-radius:12px;">
+                <div style="background:var(--bg-inner);border:1px solid var(--border-blueprint);padding:12px;border-radius:12px;">
                   <div style="display:flex;justify-content:space-between;font-size:0.76rem;font-weight:700;">
                     <span>Procedures</span>
                     <span id="lblProcCount" style="color:var(--amber);font-family:'JetBrains Mono',monospace;">1 шт.</span>
@@ -1184,13 +1210,13 @@
             <!-- Right: Visual Algorithm Flowchart -->
             <div class="bp-card card-cyan" style="display:flex;flex-direction:column;justify-content:space-between;gap:8px;">
               <div style="font-weight:800;font-size:0.88rem;color:var(--cyan);">⚙️ Блок-схема конструктора WHERE</div>
-              <div style="background:rgba(6,10,18,0.55);padding:8px 10px;border-radius:8px;font-size:0.75rem;border-left:3px solid var(--cyan);">
+              <div style="background:var(--bg-inner);padding:8px 10px;border-radius:8px;font-size:0.75rem;border-left:3px solid var(--cyan);">
                 <strong>1. Сбор фильтров:</strong> проверка заполненных полей <code>AppointmentFilter</code>
               </div>
-              <div style="background:rgba(6,10,18,0.55);padding:8px 10px;border-radius:8px;font-size:0.75rem;border-left:3px solid var(--emerald-light);">
+              <div style="background:var(--bg-inner);padding:8px 10px;border-radius:8px;font-size:0.75rem;border-left:3px solid var(--emerald-light);">
                 <strong>2. Функция ci(str):</strong> <code>ToLowerInvariant()</code> для кириллицы в SQLite
               </div>
-              <div style="background:rgba(6,10,18,0.55);padding:8px 10px;border-radius:8px;font-size:0.75rem;border-left:3px solid var(--amber);">
+              <div style="background:var(--bg-inner);padding:8px 10px;border-radius:8px;font-size:0.75rem;border-left:3px solid var(--amber);">
                 <strong>3. Защита @p0..@pN:</strong> привязка параметров без SQL-инъекций
               </div>
             </div>
@@ -1511,8 +1537,8 @@
   <!-- Modal: Overview Grid -->
   <div class="modal-overlay" id="overviewOverlay">
     <div style="display:flex;justify-content:space-between;align-items:center;">
-      <h3 style="color:#f8fafc;font-size:1.25rem;font-weight:800;">Сетка всех слайдов презентации</h3>
-      <button class="tool-btn" id="closeOverview" style="color:#f8fafc;">✕ Закрыть</button>
+      <h3 style="color:var(--text-main);font-size:1.25rem;font-weight:800;">Сетка всех слайдов презентации</h3>
+      <button class="tool-btn" id="closeOverview" style="color:var(--text-main);">✕ Закрыть</button>
     </div>
     <div class="overview-grid" id="overviewGrid"><div class="overview-item current">
           <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#38bdf8;margin-bottom:4px;">SHEET 01</div>
